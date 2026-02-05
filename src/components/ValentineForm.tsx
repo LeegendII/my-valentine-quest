@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
-import { Mail, Copy, MessageCircle, Send, ArrowLeft } from "lucide-react";
+import { Mail, Copy, MessageCircle, ArrowLeft, Eye, EyeOff } from "lucide-react";
 
 interface ValentineFormProps {
   onSend: () => void;
@@ -15,35 +15,34 @@ export const ValentineForm = ({ onSend, onBack }: ValentineFormProps) => {
   const [senderName, setSenderName] = useState("");
   const [recipientName, setRecipientName] = useState("");
   const [message, setMessage] = useState("");
+  const [showPreview, setShowPreview] = useState(false);
 
   const generateMessage = () => {
     const defaultMessage = `💕 Will you be my Valentine? 💕\n\nDear ${recipientName || "My Love"},\n\n${message || "I think you're amazing and I'd love to spend Valentine's Day with you!"}\n\nWith love,\n${senderName || "Your Secret Admirer"} ❤️`;
     return defaultMessage;
   };
 
-  const handleWhatsApp = () => {
+  const validateForm = () => {
     if (!recipientName.trim()) {
       toast({
         title: "Missing recipient name",
         description: "Please enter your valentine's name",
         variant: "destructive",
       });
-      return;
+      return false;
     }
+    return true;
+  };
+
+  const handleWhatsApp = () => {
+    if (!validateForm()) return;
     const text = encodeURIComponent(generateMessage());
     window.open(`https://wa.me/?text=${text}`, "_blank");
     onSend();
   };
 
   const handleEmail = () => {
-    if (!recipientName.trim()) {
-      toast({
-        title: "Missing recipient name",
-        description: "Please enter your valentine's name",
-        variant: "destructive",
-      });
-      return;
-    }
+    if (!validateForm()) return;
     const subject = encodeURIComponent(`💕 Will you be my Valentine, ${recipientName}? 💕`);
     const body = encodeURIComponent(generateMessage());
     window.open(`mailto:?subject=${subject}&body=${body}`, "_blank");
@@ -51,14 +50,7 @@ export const ValentineForm = ({ onSend, onBack }: ValentineFormProps) => {
   };
 
   const handleCopyLink = async () => {
-    if (!recipientName.trim()) {
-      toast({
-        title: "Missing recipient name",
-        description: "Please enter your valentine's name",
-        variant: "destructive",
-      });
-      return;
-    }
+    if (!validateForm()) return;
     const text = generateMessage();
     try {
       await navigator.clipboard.writeText(text);
@@ -144,8 +136,33 @@ export const ValentineForm = ({ onSend, onBack }: ValentineFormProps) => {
         </div>
       </div>
 
+      {/* Preview Toggle */}
+      <div className="mt-6 max-w-md mx-auto">
+        <Button
+          type="button"
+          variant="ghost"
+          onClick={() => setShowPreview(!showPreview)}
+          className="text-primary hover:text-primary/80 font-quicksand gap-2 w-full"
+        >
+          {showPreview ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+          {showPreview ? "Hide Preview" : "Preview Message"}
+        </Button>
+
+        {/* Message Preview */}
+        {showPreview && (
+          <div className="mt-4 p-4 bg-card/90 border border-primary/20 rounded-xl text-left animate-fade-in">
+            <p className="font-quicksand text-xs text-muted-foreground mb-2 uppercase tracking-wide">
+              Message Preview 💌
+            </p>
+            <div className="font-quicksand text-foreground/90 text-sm whitespace-pre-wrap leading-relaxed">
+              {generateMessage()}
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* Share buttons */}
-      <div className="mt-8 space-y-3">
+      <div className="mt-6 space-y-3">
         <p className="font-quicksand text-muted-foreground text-sm mb-4">
           Choose how to send your Valentine 💕
         </p>
