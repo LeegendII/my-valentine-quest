@@ -14,6 +14,7 @@ interface ValentineFormProps {
 export const ValentineForm = ({ onSend, onBack }: ValentineFormProps) => {
   const [senderName, setSenderName] = useState("");
   const [recipientName, setRecipientName] = useState("");
+  const [recipientEmail, setRecipientEmail] = useState("");
   const [message, setMessage] = useState("");
   const [showPreview, setShowPreview] = useState(false);
 
@@ -22,11 +23,32 @@ export const ValentineForm = ({ onSend, onBack }: ValentineFormProps) => {
     return defaultMessage;
   };
 
-  const validateForm = () => {
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateForm = (requireEmail = false) => {
     if (!recipientName.trim()) {
       toast({
         title: "Missing recipient name",
         description: "Please enter your valentine's name",
+        variant: "destructive",
+      });
+      return false;
+    }
+    if (requireEmail && !recipientEmail.trim()) {
+      toast({
+        title: "Missing email address",
+        description: "Please enter your valentine's email",
+        variant: "destructive",
+      });
+      return false;
+    }
+    if (requireEmail && !isValidEmail(recipientEmail)) {
+      toast({
+        title: "Invalid email address",
+        description: "Please enter a valid email address",
         variant: "destructive",
       });
       return false;
@@ -42,10 +64,10 @@ export const ValentineForm = ({ onSend, onBack }: ValentineFormProps) => {
   };
 
   const handleEmail = () => {
-    if (!validateForm()) return;
+    if (!validateForm(true)) return;
     const subject = encodeURIComponent(`💕 Will you be my Valentine, ${recipientName}? 💕`);
     const body = encodeURIComponent(generateMessage());
-    window.open(`mailto:?subject=${subject}&body=${body}`, "_blank");
+    window.open(`mailto:${encodeURIComponent(recipientEmail)}?subject=${subject}&body=${body}`, "_blank");
     onSend();
   };
 
@@ -119,6 +141,20 @@ export const ValentineForm = ({ onSend, onBack }: ValentineFormProps) => {
             onChange={(e) => setRecipientName(e.target.value)}
             className="bg-card/80 border-primary/20 focus:border-primary font-quicksand"
             required
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="recipientEmail" className="font-quicksand text-foreground/80">
+            Your Valentine's Email 📧
+          </Label>
+          <Input
+            id="recipientEmail"
+            type="email"
+            placeholder="Enter their email address"
+            value={recipientEmail}
+            onChange={(e) => setRecipientEmail(e.target.value)}
+            className="bg-card/80 border-primary/20 focus:border-primary font-quicksand"
           />
         </div>
 
