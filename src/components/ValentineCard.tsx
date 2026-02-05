@@ -1,12 +1,24 @@
 import { useState } from "react";
 import { ValentineButtons } from "./ValentineButtons";
 import { SuccessMessage } from "./SuccessMessage";
+import { ValentineForm } from "./ValentineForm";
+
+type Step = "question" | "form" | "success";
 
 export const ValentineCard = () => {
-  const [accepted, setAccepted] = useState(false);
+  const [step, setStep] = useState<Step>("question");
 
-  if (accepted) {
+  if (step === "success") {
     return <SuccessMessage />;
+  }
+
+  if (step === "form") {
+    return (
+      <ValentineForm 
+        onSend={() => setStep("success")} 
+        onBack={() => setStep("question")} 
+      />
+    );
   }
 
   return (
@@ -32,7 +44,7 @@ export const ValentineCard = () => {
       </p>
       
       {/* Buttons */}
-      <ValentineButtons onYesClick={() => setAccepted(true)} />
+      <ValentineButtons onYesClick={() => setStep("form")} />
       
       {/* Hint text */}
       <p className="font-quicksand text-muted-foreground/60 text-sm mt-12 italic">
