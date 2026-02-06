@@ -40,7 +40,7 @@ export const ValentineCard = () => {
       <h1 className="font-dancing text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-primary mb-2 leading-tight">
         Will you be
       </h1>
-      <h1 className="font-dancing text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-gradient-romantic mb-8 leading-tight flex justify-center">
+      <h1 className="font-dancing text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-romantic mb-8 leading-tight flex justify-center">
         <ScatterText>my Val?</ScatterText>
       </h1>
 
