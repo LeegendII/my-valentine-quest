@@ -2,8 +2,10 @@ import { useState } from "react";
 import { ValentineButtons } from "./ValentineButtons";
 import { SuccessMessage } from "./SuccessMessage";
 import { ValentineForm } from "./ValentineForm";
+import { ScatterText } from "./ui/ScatterText";
+import { HeartfeltMessage } from "./HeartfeltMessage";
 
-type Step = "question" | "form" | "success";
+type Step = "question" | "message" | "form" | "success";
 
 export const ValentineCard = () => {
   const [step, setStep] = useState<Step>("question");
@@ -12,11 +14,15 @@ export const ValentineCard = () => {
     return <SuccessMessage />;
   }
 
+  if (step === "message") {
+    return <HeartfeltMessage onContinue={() => setStep("form")} />;
+  }
+
   if (step === "form") {
     return (
-      <ValentineForm 
-        onSend={() => setStep("success")} 
-        onBack={() => setStep("question")} 
+      <ValentineForm
+        onSend={() => setStep("success")}
+        onBack={() => setStep("question")}
       />
     );
   }
@@ -29,23 +35,23 @@ export const ValentineCard = () => {
         <span className="animate-pulse" style={{ animationDelay: "0.2s" }}>💗</span>
         <span className="animate-pulse" style={{ animationDelay: "0.4s" }}>💕</span>
       </div>
-      
+
       {/* Main question */}
       <h1 className="font-dancing text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-primary mb-2 leading-tight">
         Will you be
       </h1>
-      <h1 className="font-dancing text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-gradient-romantic mb-8 leading-tight">
-        my Val?
+      <h1 className="font-dancing text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-romantic mb-8 leading-tight flex justify-center">
+        <ScatterText>my Val?</ScatterText>
       </h1>
-      
+
       {/* Cute subtitle */}
       <p className="font-quicksand text-muted-foreground text-lg sm:text-xl mb-2">
         Please say yes... 🥺
       </p>
-      
+
       {/* Buttons */}
-      <ValentineButtons onYesClick={() => setStep("form")} />
-      
+      <ValentineButtons onYesClick={() => setStep("message")} />
+
       {/* Hint text */}
       <p className="font-quicksand text-muted-foreground/60 text-sm mt-12 italic">
         (The No button might be a little... stubborn 😉)
