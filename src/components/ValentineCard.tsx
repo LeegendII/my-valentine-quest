@@ -15,7 +15,7 @@ export const ValentineCard = () => {
   }
 
   if (step === "message") {
-    return <HeartfeltMessage onContinue={() => setStep("form")} />;
+    return <HeartfeltMessage onContinue={() => setStep("form")} onBack={() => setStep("question")} />;
   }
 
   if (step === "form") {
