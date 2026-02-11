@@ -4,7 +4,7 @@ import { SuccessMessage } from "./SuccessMessage";
 import { ValentineForm } from "./ValentineForm";
 import { ScatterText } from "./ui/ScatterText";
 import { HeartfeltMessage } from "./HeartfeltMessage";
-import minionCute from "@/assets/minion-cute.png";
+import minionCute from "@/assets/minion-cute.gif";
 
 type Step = "question" | "message" | "form" | "success";
 
@@ -35,8 +35,7 @@ export const ValentineCard = () => {
         <img
           src={minionCute}
           alt="Cute minion"
-          className="w-28 h-28 sm:w-36 sm:h-36 object-contain animate-bounce drop-shadow-lg"
-          style={{ animationDuration: "2s" }}
+          className="w-28 h-28 sm:w-36 sm:h-36 object-contain drop-shadow-lg"
         />
       </div>
 

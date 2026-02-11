@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import minionHappy from "@/assets/minion-happy.png";
+import minionHappy from "@/assets/minion-happy.gif";
 
 interface HeartfeltMessageProps {
     onContinue: () => void;
@@ -41,8 +41,7 @@ export const HeartfeltMessage = ({ onContinue, onBack }: HeartfeltMessageProps) 
               <img
                 src={minionHappy}
                 alt="Happy minion"
-                className="w-32 h-32 sm:w-40 sm:h-40 object-contain animate-bounce drop-shadow-lg"
-                style={{ animationDuration: "1.5s" }}
+                className="w-32 h-32 sm:w-40 sm:h-40 object-contain drop-shadow-lg"
               />
             </div>
 
