@@ -74,7 +74,7 @@ export const ValentineButtons = ({ onYesClick }: ValentineButtonsProps) => {
           "border-2 border-muted-foreground/30 text-muted-foreground",
           "font-quicksand font-medium",
           "px-6 py-5 text-base sm:text-lg rounded-full",
-          "hover:border-primary/50 hover:text-primary",
+          "hover:border-muted-foreground/50 hover:text-muted-foreground",
           "transition-all duration-300 ease-out",
           "active:scale-95 touch-manipulation",
           "bg-card/80 backdrop-blur-sm",
