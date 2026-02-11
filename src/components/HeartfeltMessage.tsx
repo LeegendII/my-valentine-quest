@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 interface HeartfeltMessageProps {
     onContinue: () => void;
+    onBack: () => void;
 }
 
 const MESSAGES = [
@@ -13,7 +15,7 @@ const MESSAGES = [
     "Can't wait to make magical memories with you! ✨"
 ];
 
-export const HeartfeltMessage = ({ onContinue }: HeartfeltMessageProps) => {
+export const HeartfeltMessage = ({ onContinue, onBack }: HeartfeltMessageProps) => {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
@@ -24,6 +26,15 @@ export const HeartfeltMessage = ({ onContinue }: HeartfeltMessageProps) => {
 
     return (
         <div className="text-center px-4 animate-fade-in relative z-10 max-w-lg mx-auto">
+            {/* Back button */}
+            <button
+                onClick={onBack}
+                className="absolute top-4 left-4 text-muted-foreground hover:text-primary transition-colors flex items-center gap-1 font-quicksand text-sm"
+            >
+                <ArrowLeft className="w-4 h-4" />
+                Back
+            </button>
+
             {/* Decorative Icon */}
             <div className="text-6xl mb-6 animate-bounce">
                 💌
