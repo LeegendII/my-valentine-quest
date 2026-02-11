@@ -3,6 +3,34 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { MagneticWrapper } from "./ui/MagneticWrapper";
 
+const funnyQuestions = [
+  "Why babe? 🥺",
+  "Are you sure?! 😭",
+  "But I made you breakfast... 🍳",
+  "Even my dog said yes 🐶",
+  "My mom already likes you 👩‍👦",
+  "I'll share my fries 🍟",
+  "But who'll laugh at my jokes? 😢",
+  "I already told my plants about you 🌱",
+  "Netflix won't watch itself 🎬",
+  "But I learned to cook for you 👨‍🍳",
+  "What if I do a backflip? 🤸",
+  "I'll let you pick the movie 🎥",
+  "But I already named our cat 🐱",
+  "I wrote you a poem... 📝",
+  "Even Siri thinks we're cute 📱",
+  "But my horoscope said yes ♥️",
+  "I'll carry all the groceries 💪",
+  "Pretty please? 🥹",
+  "What about our travel plans? ✈️",
+  "I'll never steal your blanket 🛏️",
+  "But who'll eat my cooking? 🍝",
+  "I promise to laugh at your puns 😂",
+  "My playlist is all love songs now 🎵",
+  "I already picked our wedding song 💒",
+  "But I bought matching socks 🧦",
+];
+
 interface ValentineButtonsProps {
   onYesClick: () => void;
 }
@@ -13,11 +41,24 @@ export const ValentineButtons = ({ onYesClick }: ValentineButtonsProps) => {
   const [noPosition, setNoPosition] = useState<{ top: number; left: number } | null>(null);
   const [rotation, setRotation] = useState(0);
   const [yesStrength, setYesStrength] = useState(0.35);
-  // Add a click/hover count to ramp up the tilt/slant
   const [interactionCount, setInteractionCount] = useState(0);
+  const [noText, setNoText] = useState("No 💔");
+  const [usedQuestions, setUsedQuestions] = useState<number[]>([]);
+
+  const getRandomQuestion = () => {
+    let available = funnyQuestions.map((_, i) => i).filter((i) => !usedQuestions.includes(i));
+    if (available.length === 0) {
+      setUsedQuestions([]);
+      available = funnyQuestions.map((_, i) => i);
+    }
+    const idx = available[Math.floor(Math.random() * available.length)];
+    setUsedQuestions((prev) => [...prev, idx]);
+    return funnyQuestions[idx];
+  };
 
   const handleNoInteraction = () => {
     setInteractionCount((prev) => prev + 1);
+    setNoText(getRandomQuestion());
 
     // Increase Yes button size
     setYesScale((prev) => Math.min(prev + 0.15, 2.5));
@@ -87,7 +128,7 @@ export const ValentineButtons = ({ onYesClick }: ValentineButtonsProps) => {
           transformOrigin: "center",
         }}
       >
-        No 💔
+        {noText}
       </Button>
     </div>
   );
