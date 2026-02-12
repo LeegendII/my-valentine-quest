@@ -4,7 +4,7 @@ import { SuccessMessage } from "./SuccessMessage";
 import { ValentineForm } from "./ValentineForm";
 import { ScatterText } from "./ui/ScatterText";
 import { HeartfeltMessage } from "./HeartfeltMessage";
-import minionCute from "@/assets/minion-cute.gif";
+import mascotCute from "@/assets/mascot-cute.png";
 
 type Step = "question" | "message" | "form" | "success";
 
@@ -33,8 +33,8 @@ export const ValentineCard = () => {
       {/* Cute minion */}
       <div className="flex justify-center mb-4">
         <img
-          src={minionCute}
-          alt="Cute minion"
+          src={mascotCute}
+          alt="Cute mascot"
           className="w-28 h-28 sm:w-36 sm:h-36 object-contain drop-shadow-lg"
         />
       </div>

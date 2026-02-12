@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import minionHappy from "@/assets/minion-happy.gif";
+import mascotHappy from "@/assets/mascot-happy.png";
 
 interface HeartfeltMessageProps {
     onContinue: () => void;
@@ -39,8 +39,8 @@ export const HeartfeltMessage = ({ onContinue, onBack }: HeartfeltMessageProps) 
             {/* Happy minion */}
             <div className="flex justify-center mb-4">
               <img
-                src={minionHappy}
-                alt="Happy minion"
+                src={mascotHappy}
+                alt="Happy mascot"
                 className="w-32 h-32 sm:w-40 sm:h-40 object-contain drop-shadow-lg"
               />
             </div>
