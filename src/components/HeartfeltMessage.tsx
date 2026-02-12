@@ -51,7 +51,7 @@ export const HeartfeltMessage = ({ onContinue, onBack }: HeartfeltMessageProps) 
             </h2>
 
             {/* The Random Message */}
-            <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border-2 border-primary/20 mb-8 transform hover:scale-105 transition-transform duration-300">
+            <div className="mb-8">
                 <p className="font-quicksand text-xl sm:text-2xl text-foreground font-medium italic">
                     "{message}"
                 </p>
